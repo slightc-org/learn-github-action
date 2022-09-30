@@ -1,0 +1,25 @@
+on:
+  workflow_dispatch:
+    inputs:
+      artifact:
+        description: artifact name
+        type: string
+        required: true
+
+jobs:
+  lsArtifact:
+    runs-on: ubuntu-latest
+    name: "ls artifact files"
+    steps:
+    - name: Download artifact
+      uses: aochmann/actions-download-artifact@1.0.0
+      with:
+        name: ${{ inputs.artifact }}
+        path: download/artifacts
+
+    - name: ls files
+      run: ls download/artifacts
+
+    - name: cat readme
+      run: cat download/artifacts/README.md
+
