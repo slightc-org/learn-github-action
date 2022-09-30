@@ -1,0 +1,14 @@
+on:
+  push:
+    branches:
+      - artifact/base
+
+jobs:
+  saveArtifact:
+    runs-on: ubuntu-latest
+    name: "save artifact"
+    steps:
+    - uses: actions/upload-artifact@v3
+      with:
+        name: artifact-${{ github.run_id }}
+        path: ./*
