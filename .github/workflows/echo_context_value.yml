@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:
+      - context/github
+
+jobs:
+  echoContext:
+    runs-on: ubuntu-latest
+    name: "echo github context"
+    strategy:
+      matrix:
+        key: [ ref, ref_name ]
+    steps:
+    - name: "github.${{matrix.key}}"
+      run: echo "github.${{matrix.key}} ${{github[matrix.key]}}"
+
