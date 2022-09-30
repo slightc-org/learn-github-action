@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - deploy/review
+      - deploy/matrix
 
 jobs:
   job1:
@@ -27,28 +27,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: job2
+    strategy:
+      matrix:
+        env: [ test, dev, prod ]
     environment:
-      name: prod
+      name: ${{ matrix.env }}
     steps:
-    - name: deploy step 1
-      run: echo "env:prod@${{ needs.job2.outputs.date }}"
-
-  deploy_test:
-    runs-on: ubuntu-latest
-    needs: job2
-    environment:
-      name: test
-    steps:
-    - name: deploy step 1
-      run: echo "env:dev@${{ needs.job2.outputs.date }}"
-
-  deploy_dev:
-    runs-on: ubuntu-latest
-    needs: job2
-    environment:
-      name: dev
-    steps:
-    - name: deploy step 1
-      run: echo "env:dev@${{ needs.job2.outputs.date }}"
+    - name: ${{ matrix.env }} deploy step 1
+      run: echo "env:${{ matrix.env }}@${{ needs.job2.outputs.date }}"
 
 
