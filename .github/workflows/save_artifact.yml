@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     name: "save artifact"
     steps:
-    - uses: actions/checkout@v2
+    - run: echo hello > ./artifact/README.md
     - uses: actions/upload-artifact@v3
       with:
         name: artifact-${{ github.run_id }}
-        path: README.md
+        path: ./artifact/
