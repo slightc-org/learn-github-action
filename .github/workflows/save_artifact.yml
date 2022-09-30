@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "save artifact"
     steps:
-    - run: echo hello > ./artifact/README.md
+    - run: mkdir -p artifact && echo hello > ./artifact/README.md
     - uses: actions/upload-artifact@v3
       with:
         name: artifact-${{ github.run_id }}
