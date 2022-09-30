@@ -12,7 +12,7 @@ jobs:
     name: "ls artifact files"
     steps:
     - name: Download artifact
-      uses: aochmann/actions-download-artifact@1.0.0
+      uses: aochmann/actions-download-artifact@1.0.4
       with:
         name: ${{ inputs.artifact }}
         path: download/artifacts
