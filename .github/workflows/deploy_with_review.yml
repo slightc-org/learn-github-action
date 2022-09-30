@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:
+      - deploy/review
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    name: job1 before deploy
+    steps:
+    - name: job1 step 1
+      run: echo "job1 step 1"
+
+  job2:
+    runs-on: ubuntu-latest
+    name: job2 before deploy
+    steps:
+    - name: job2 step 1
+      run: echo "job2 step 1"
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    steps:
+    - name: deploy step 1
+      run: echo "deploy successfully"
+
+
+
