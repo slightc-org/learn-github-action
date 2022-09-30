@@ -15,9 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     name: job2 before deploy
     needs: job1
+    outputs:
+      date: ${{ steps.step1.outputs.date }}
     steps:
     - name: job2 step 1
       run: echo "job2 step 1"
+    - name: create output data
+      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H.%M.%S')"
 
   deploy:
     runs-on: ubuntu-latest
@@ -26,7 +30,7 @@ jobs:
       name: prod
     steps:
     - name: deploy step 1
-      run: echo "deploy successfully"
+      run: echo "env:prod@${{ needs.job2.outputs.date }}"
 
   deploy_test:
     runs-on: ubuntu-latest
@@ -35,7 +39,7 @@ jobs:
       name: test
     steps:
     - name: deploy step 1
-      run: echo "deploy successfully"
+      run: echo "env:dev@${{ needs.job2.outputs.date }}"
 
   deploy_dev:
     runs-on: ubuntu-latest
@@ -44,6 +48,6 @@ jobs:
       name: dev
     steps:
     - name: deploy step 1
-      run: echo "deploy successfully"
+      run: echo "env:dev@${{ needs.job2.outputs.date }}"
 
 
