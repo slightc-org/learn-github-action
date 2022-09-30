@@ -16,11 +16,12 @@ jobs:
     name: job2 before deploy
     needs: job1
     outputs:
-      date: ${{ steps.step1.outputs.date }}
+      date: ${{ steps.getDate.outputs.date }}
     steps:
     - name: job2 step 1
       run: echo "job2 step 1"
     - name: create output data
+      id: getDate
       run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H.%M.%S')"
 
   deploy:
